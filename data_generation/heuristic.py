@@ -1,21 +1,18 @@
 from game_state import GameState as State
 
 class Heuristic:
-  def __init__(self):
-    pass
-
   def getMove(self, state):
     # TODO: Implement - this is the important part
     return 0
 
   ##
   # Report the result of a game, or that it is unfinished.
-  # @param {State}
-  # @return {int}:
-  # 2 for unfinished game,
-  # 1 for first player victory,
-  # -1 for second player victory,
-  # 0 for draw
+  # @param {GameState} state
+  # @return {int} The game result:
+  #     2 for unfinished game,
+  #     1 for first player victory,
+  #     -1 for second player victory,
+  #     0 for draw
   ##
   def getGameResult(self, state):
     # TODO: Implement - this is the same for all heuristics (they should extend this class)
@@ -59,14 +56,8 @@ class Heuristic:
           return player
 
     #If neither player has won, check for a draw.
-    if (state.get(0, 5) != 0
-        and state.get(1, 5) != 0
-        and state.get(2, 5) != 0
-        and state.get(3, 5) != 0
-        and state.get(4, 5) != 0
-        and state.get(5, 5) != 0
-        and state.get(6, 5) != 0):
-      return 0
+    for col in range(State.WIDTH):
+      if state.get(col, State.HEIGHT-1) is 0:
+        return State.UNFINISHED
+    return 0
 
-    # None of the conditions are met - unfinished game.
-    return 2

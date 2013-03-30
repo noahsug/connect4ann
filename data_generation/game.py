@@ -24,8 +24,8 @@ class Game:
     self.goToNextState(nextState)
 
   def play(self):
-    result = 2
-    while result == 2:
+    result = State.UNFINISHED
+    while result is State.UNFINISHED:
       self.takeTurn()
       result = self.heuristic.getGameResult(self.currentState)
-    return (self.pastStates[1:], result)
+    return (self.pastStates[1:], State.pieceStr(result))

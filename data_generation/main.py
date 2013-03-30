@@ -1,8 +1,12 @@
 from game import Game
-from heuristic import Heuristic
+from random_heuristic import RandomHeuristic
 
 game = Game()
-game.setHeuristic(Heuristic())
+game.setHeuristic(RandomHeuristic())
 
-print game.play()
+(states, result) = game.play()
+
+for state in states:
+  print state
+print 'AND THE WINNER IS', result
 
