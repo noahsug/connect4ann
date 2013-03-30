@@ -24,7 +24,8 @@ class Game:
     self.goToNextState(nextState)
 
   def play(self):
-    while not self.heuristic.isGameOver(self.currentState):
+    result = 2
+    while result == 2:
       self.takeTurn()
-    winner = self.heuristic.getWinner()
-    return (self.pastStates[1:], winner)
+      result = self.heuristic.getGameResult(self.currentState)
+    return (self.pastStates[1:], result)
