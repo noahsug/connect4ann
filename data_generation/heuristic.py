@@ -1,8 +1,8 @@
 from game_state import GameState as State
 
 class Heuristic:
-  def getMove(self, state):
-    # TODO: Implement - this is the important part
+  def getMove(self, state, player):
+    # To be implemented by the inheriting classes.
     return 0
 
   ##
@@ -15,7 +15,6 @@ class Heuristic:
   #     0 for draw
   ##
   def getGameResult(self, state):
-    # TODO: Implement - this is the same for all heuristics (they should extend this class)
     #Horizontal victory
     for y in range(State.HEIGHT):
       for x in range(State.WIDTH - 3):

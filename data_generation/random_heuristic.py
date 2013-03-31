@@ -4,7 +4,7 @@ import random
 
 class RandomHeuristic(Heuristic):
 
-  def getMove(self, state):
+  def getMove(self, state, player):
     availableMoves = range(State.WIDTH)
     random.shuffle(availableMoves)
     for move in availableMoves:

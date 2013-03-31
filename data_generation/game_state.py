@@ -30,7 +30,7 @@ class GameState:
   def toString(self):
     result = []
     row = [0 for i in range(self.WIDTH)]
-    for y in range(self.HEIGHT-1, 0, -1):
+    for y in range(self.HEIGHT-1, -1, -1):
       for x in range(self.WIDTH):
         row[x] = self.get(x, y)
       result.append(' '.join([self.pieceStr(piece) for piece in row]))

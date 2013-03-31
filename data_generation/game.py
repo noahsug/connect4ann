@@ -15,17 +15,27 @@ class Game:
   def getPlayer(self):
     return ((len(self.pastStates) + 1) % 2) * 2 - 1
 
-  def setHeuristic(self, heuristic):
-    self.heuristic = heuristic
+  def getHeuristic(self, player):
+    if (player == 1):
+      return self.starterHeuristic
+    else:
+      return self.followerHeuristic
+
+  def setHeuristic(self, heuristic, player):
+    if (player == 1):
+      self.starterHeuristic = heuristic
+    else:
+      self.followerHeuristic = heuristic
 
   def takeTurn(self):
-    move = self.heuristic.getMove(self.currentState)
-    nextState = self.currentState.makeMove(move, self.getPlayer())
+    player = self.getPlayer()
+    move = self.getHeuristic(player).getMove(self.currentState, player)
+    nextState = self.currentState.makeMove(move, player)
     self.goToNextState(nextState)
 
   def play(self):
     result = State.UNFINISHED
     while result is State.UNFINISHED:
       self.takeTurn()
-      result = self.heuristic.getGameResult(self.currentState)
+      result = self.getHeuristic(self.getPlayer()).getGameResult(self.currentState)
     return (self.pastStates[1:], State.pieceStr(result))
