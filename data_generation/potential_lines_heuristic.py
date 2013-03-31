@@ -20,8 +20,6 @@ class PotentialLinesHeuristic(Heuristic):
           maxMoves.append(move)
 
     random.shuffle(maxMoves)
-    print "Max lines: ", maxLines
-    print "Moves: ", maxMoves
     return maxMoves[0]
         
         
