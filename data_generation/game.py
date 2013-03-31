@@ -29,7 +29,9 @@ class Game:
 
   def takeTurn(self):
     player = self.getPlayer()
-    move = self.getHeuristic(player).getMove(self.currentState, player)
+    move = self.getHeuristic(player).getForcedMove(self.currentState)
+    if (move == -1):
+      move = self.getHeuristic(player).getMove(self.currentState, player)
     nextState = self.currentState.makeMove(move, player)
     self.goToNextState(nextState)
 

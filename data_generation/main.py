@@ -11,5 +11,8 @@ game.setHeuristic(PotentialLinesHeuristic(), -1)
 for state in states:
   print state
 print game.currentState.toString()
-print 'AND THE WINNER IS', result
+if (result == '-'):
+  print "GAME ENDED IN DRAW"
+else:
+  print 'AND THE WINNER IS', result
 

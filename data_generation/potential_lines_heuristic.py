@@ -39,26 +39,26 @@ class PotentialLinesHeuristic(Heuristic):
     for y in range(State.HEIGHT):
       for x in range(State.WIDTH - 3):
         if ((state.get(x, y) == player
-          or state.get(x+1, y) == player
-          or state.get(x+2, y) == player
-          or state.get(x+3, y) == player)
-          and (state.get(x, y) != oppositePlayer
-          and state.get(x+1, y) != oppositePlayer
-          and state.get(x+2, y) != oppositePlayer
-          and state.get(x+3, y) != oppositePlayer)):
+            or state.get(x+1, y) == player
+            or state.get(x+2, y) == player
+            or state.get(x+3, y) == player)
+            and (state.get(x, y) != oppositePlayer
+            and state.get(x+1, y) != oppositePlayer
+            and state.get(x+2, y) != oppositePlayer
+            and state.get(x+3, y) != oppositePlayer)):
           lines += 1
 
     #Vertical
     for x in range(State.WIDTH):
       for y in range(State.HEIGHT - 3):
         if ((state.get(x, y) == player
-          or state.get(x, y+1) == player
-          or state.get(x, y+2) == player
-          or state.get(x, y+3) == player)
-          and (state.get(x, y) != oppositePlayer
-          and state.get(x, y+1) != oppositePlayer
-          and state.get(x, y+2) != oppositePlayer
-          and state.get(x, y+3) != oppositePlayer)):
+            or state.get(x, y+1) == player
+            or state.get(x, y+2) == player
+            or state.get(x, y+3) == player)
+            and (state.get(x, y) != oppositePlayer
+            and state.get(x, y+1) != oppositePlayer
+            and state.get(x, y+2) != oppositePlayer
+            and state.get(x, y+3) != oppositePlayer)):
           lines += 1
 
     #Diagonal
@@ -66,24 +66,24 @@ class PotentialLinesHeuristic(Heuristic):
       for y in range(State.HEIGHT - 3):
         #bottom-left to top-right
         if ((state.get(x, y) == player
-          or state.get(x+1, y+1) == player
-          or state.get(x+2, y+2) == player
-          or state.get(x+3, y+3) == player)
-          and (state.get(x, y) != oppositePlayer
-          and state.get(x+1, y+1) != oppositePlayer
-          and state.get(x+2, y+2) != oppositePlayer
-          and state.get(x+3, y+3) != oppositePlayer)):
+            or state.get(x+1, y+1) == player
+            or state.get(x+2, y+2) == player
+            or state.get(x+3, y+3) == player)
+            and (state.get(x, y) != oppositePlayer
+            and state.get(x+1, y+1) != oppositePlayer
+            and state.get(x+2, y+2) != oppositePlayer
+            and state.get(x+3, y+3) != oppositePlayer)):
           lines += 1
 
         #Top-left to bottom-right
         if ((state.get(x, y+3) == player
-          or state.get(x+1, y+2) == player
-          or state.get(x+2, y+1) == player
-          or state.get(x+3, y) == player)
-          and(state.get(x, y+3) != oppositePlayer
-          and state.get(x+1, y+2) != oppositePlayer
-          and state.get(x+2, y+1) != oppositePlayer
-          and state.get(x+3, y) != oppositePlayer)):
+            or state.get(x+1, y+2) == player
+            or state.get(x+2, y+1) == player
+            or state.get(x+3, y) == player)
+            and(state.get(x, y+3) != oppositePlayer
+            and state.get(x+1, y+2) != oppositePlayer
+            and state.get(x+2, y+1) != oppositePlayer
+            and state.get(x+3, y) != oppositePlayer)):
           lines += 1
 
     return lines
