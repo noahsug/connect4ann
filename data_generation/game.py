@@ -1,43 +1,41 @@
 from game_state import GameState as State
+import board
 
 class Game:
   def __init__(self):
-    self.pastStates = []
+    self.pastStateData = []
     self.currentState = State()
 
-  def goToNextState(self, state):
-    self.pastStates.append(self.currentState.toString())
-    self.currentState = state
+  def reset(self):
+    self.currentState.reset()
+    self.pastStateData = []
 
-  ##
-  # @return {int} The player whose turn it is (either -1 or 1).
-  ##
-  def getPlayer(self):
-    return ((len(self.pastStates) + 1) % 2) * 2 - 1
+  def makeMove(self, move):
+    self.pastStateData.append((self.currentState.toString(), self.currentState.getPlayer()))
+    self.currentState.makeMove(move)
 
-  def getHeuristic(self, player):
-    if (player == 1):
+  def getHeuristic(self):
+    if (self.currentState.getPlayer() == 1):
       return self.starterHeuristic
     else:
       return self.followerHeuristic
 
   def setHeuristic(self, heuristic, player):
+    heuristic.setState(self.currentState)
     if (player == 1):
       self.starterHeuristic = heuristic
     else:
       self.followerHeuristic = heuristic
 
   def takeTurn(self):
-    player = self.getPlayer()
-    move = self.getHeuristic(player).getForcedMove(self.currentState)
-    if (move == -1):
-      move = self.getHeuristic(player).getMove(self.currentState, player)
-    nextState = self.currentState.makeMove(move, player)
-    self.goToNextState(nextState)
+    move = self.getHeuristic().getForcedMove()
+    if move is None:
+      move = self.getHeuristic().getMove()
+    self.makeMove(move)
 
   def play(self):
-    result = State.UNFINISHED
-    while result is State.UNFINISHED:
+    result = board.UNFINISHED
+    while result is board.UNFINISHED:
       self.takeTurn()
-      result = self.getHeuristic(self.getPlayer()).getGameResult(self.currentState)
-    return (self.pastStates[1:], State.pieceStr(result))
+      result = self.getHeuristic().getGameResult()
+    return (self.pastStateData[1:], board.pieceStr(result))
