@@ -1,3 +1,23 @@
+%---- Board class
+% After adding board.m to your path you can:
+%
+%       To create a board:
+%           b = board();
+%
+%       To play human vs computer:
+%           b.playHumanVsComp(ply8) -- 1 if use ply8 NN, 0 for heuristic NN
+%
+%       To play ply8 NN vs heuristic NN:
+%           b.playCompVsComp()
+%
+%       To play NN vs entirely random:
+%           b.playCompVSRand(ply8) -- 1 if use ply8 NN, 0 for heuristic NN
+%
+%----- Other helpful methods:
+%       b.print() to print the board
+%       
+
+
 classdef board<handle
     properties
         pieces;
@@ -65,7 +85,7 @@ classdef board<handle
         % starting from bottom of board upwards
         function value = vectorizeBoard(obj)
             value = [];
-            a = obj.pieces;
+            a = obj.pieces * -1;
             for r = obj.ROWS:-1:1
                 for c = 1:obj.COLS
                     value = [value a(r, c)];
