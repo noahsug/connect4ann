@@ -36,11 +36,6 @@ classdef board<handle
             obj.pieces = zeros(6,7);
         end
         
-        % for testing/debugging
-        function obj = setPieces(obj, val)
-            obj.pieces = val;
-        end
-        
         function obj = clearBoard(obj)
             for r=1:obj.ROWS
                 for c=1:obj.COLS
@@ -305,7 +300,7 @@ classdef board<handle
                     else
                         consec = [a(r,c)];
                     end
-                    disp(consec);
+                    
                     if length(consec) >= 4
                         winner = consec(1);
                         return
@@ -319,54 +314,6 @@ classdef board<handle
             winner = 0;
         end
 
-        %{
-        function winner = checkWinner(obj)
-            for r = 1: obj.ROWS
-                for c = 1:obj.COLS
-                    % right to left diagonal
-                    checkSequence(r, c, -1, 1);
-                    % left to right diagonal
-                    checkSequence(r, c, 1, 1);
-                    % columns
-                    checkSequence(r, c, 1, 0);
-                    % horizontal 
-                end
-            end
-        end
-        
-        function winner = checkDiagLeftToRight(obj)
-            consec = [];
-            a = obj.pieces;
-            for ry = 1:3
-                
-                r = ry;
-                c = 1;
-                while r < obj.COLS
-                    if isempty(consec) && a(r,c) ~= 0
-                    consec = [a(r,c)];
-                    elseif isempty(consec)
-                        c = c + 1;
-                        r = r + 1;
-                        continue;
-                    elseif consec(1) == a(r, c)
-                        consec = [consec a(r,c)];
-                    else
-                        consec = [];
-                    end
-
-                    if length(consec) >= 4
-                        winner = consec(1);
-                        return
-                    end
-                    c = c + 1;
-                    r = r + 1;
-                end
-                
-            end
-            winner = 0;
-        end
-        %}
-        
         % To check: left to right: dx = 1, dy = 1
         % right to left: dx = 1, dy = -1
         function winner = checkDiag(obj, dx, dy)
