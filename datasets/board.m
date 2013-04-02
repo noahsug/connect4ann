@@ -151,7 +151,7 @@ classdef board<handle
         end
         
 %---------------------------------------------------------------------
-        function playCompVsComp(obj)
+        function winner = playCompVsComp(obj)
         % 8-ply is COMP8 is 1
         % heuristic is HEUR is -1
             obj.clearBoard();
@@ -197,7 +197,7 @@ classdef board<handle
             obj.print();
         end
 %----------------------------------------------------------------------        
-        function playCompVSRand(obj, ply8)
+        function winner = playCompVSRand(obj, ply8)
         % RANDOM is 1
         % Neural network is -1
         % ply8: bool, are we using ply 8 NN; else, use heuristic NN
@@ -253,6 +253,23 @@ classdef board<handle
         end
         
 
+        function randomTrials(obj, ply8, trials)
+            winRand = 0;
+            winComp = 0;
+            tie = 0;
+            
+            for i = 1:trials
+                winner = obj.playCompVSRand(ply8);
+                if winner == 0
+                    tie = tie + 1;
+                elseif winner == 1
+                    winRand = winRand + 1;
+                else
+                    winComp = winComp + 1;
+                end
+            end
+            disp(sprintf('ran: %d comp %d tie %s', winRand, winComp, tie));
+        end
         
         %{
 ===================================================================
