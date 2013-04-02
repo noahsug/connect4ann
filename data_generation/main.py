@@ -25,16 +25,19 @@ def printGame():
 def recordData(states, result):
   for (state, player) in states:
     if not (state in data):
-      data[state] = {'x': 0, 'o': 0, '-': 0, 'player': player}
-    data[state][result] += 1
+      data[state] = {'1': 0, '-1': 0, '0': 0}
+    if result is player:
+      data[state]['1'] += 1
+    elif result is 0:
+      data[state]['0'] += 1
+    else:
+      data[state]['-1'] += 1
 
 def outputData():
   for state in data:
     resultInfo = data[state]
-    player = board.pieceStr(resultInfo['player'])
-    oppositePlayer = board.pieceStr(resultInfo['player'] * -1)
-    score = resultInfo[oppositePlayer] - resultInfo[player]
-    total = resultInfo['x'] + resultInfo['o'] + resultInfo['-']
+    score = resultInfo['1'] - resultInfo['-1']
+    total = resultInfo['1'] + resultInfo['-1'] + resultInfo['0']
     print '%s,%g' % (state, float(score) / total)
 
 for i in range(100000):

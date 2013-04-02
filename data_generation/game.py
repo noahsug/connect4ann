@@ -11,7 +11,7 @@ class Game:
     self.pastStateData = []
 
   def makeMove(self, move):
-    self.pastStateData.append((self.currentState.toString(), self.currentState.getPlayer()))
+    self.pastStateData.append((self.currentState.toString(), -self.currentState.getPlayer()))
     self.currentState.makeMove(move)
 
   def getHeuristic(self):
@@ -38,4 +38,4 @@ class Game:
     while result is board.UNFINISHED:
       self.takeTurn()
       result = self.getHeuristic().getGameResult()
-    return (self.pastStateData[1:], board.pieceStr(result))
+    return (self.pastStateData[1:], result)
