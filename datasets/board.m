@@ -207,15 +207,15 @@ classdef board<handle
             winner = 0;
             whogoesfirst = randi([0 1]);
             while (winner == 0 && turn < 43)
-                disp(sprintf('=============turn %d', turn));
+                %disp(sprintf('=============turn %d', turn));
                 if mod(turn,2) == whogoesfirst
                     % Get RANDOM
                     result = randi([1,7]);
-                    disp(sprintf('RAND(X) played %d', result));
+                    %disp(sprintf('RAND(X) played %d', result));
                     added = obj.add(1, result);
                     while added == 0
                         result = randi([1,7]);
-                        disp(sprintf('again: RAND(X) played %d', result));
+                        %disp(sprintf('again: RAND(X) played %d', result));
                         added = obj.add(1, result);
                     end
                 else
@@ -225,7 +225,7 @@ classdef board<handle
                         else
                             result = getGNetNextMove(obj.vectorizeBoard());
                     end
-                    disp(sprintf('ANN(O) played %d', result));
+                    %disp(sprintf('ANN(O) played %d', result));
                     added = obj.add(-1, result);
                     while added == 0
                         if ply8 == 1
@@ -233,7 +233,7 @@ classdef board<handle
                         else
                             result = getGNetNextMove(obj.vectorizeBoard());
                         end
-                        disp(sprintf('again: ANN(O) played %d', result));
+                        %disp(sprintf('again: ANN(O) played %d', result));
                         added = obj.add(-1, result);
                     end
                 end
