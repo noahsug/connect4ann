@@ -20,6 +20,7 @@ for row = 1:7
 end
 
 [C, I] = max(score);
+score
 col = I;
 
 
