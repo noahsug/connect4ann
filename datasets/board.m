@@ -257,7 +257,7 @@ classdef board<handle
             winRand = 0;
             winComp = 0;
             tie = 0;
-            
+            tic;
             for i = 1:trials
                 winner = obj.playCompVSRand(ply8);
                 if winner == 0
@@ -268,6 +268,7 @@ classdef board<handle
                     winComp = winComp + 1;
                 end
             end
+            toc
             disp(sprintf('ran %d, comp %d, tie %d', winRand, winComp, tie));
         end
         
