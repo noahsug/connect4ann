@@ -257,7 +257,7 @@ classdef board<handle
             winRand = 0;
             winComp = 0;
             tie = 0;
-            
+            tic;
             for i = 1:trials
                 winner = obj.playCompVSRand(ply8);
                 if winner == 0
@@ -268,7 +268,8 @@ classdef board<handle
                     winComp = winComp + 1;
                 end
             end
-            disp(sprintf('ran: %d comp %d tie %s', winRand, winComp, tie));
+            toc
+            disp(sprintf('ran %d, comp %d, tie %d', winRand, winComp, tie));
         end
         
         %{
@@ -378,7 +379,9 @@ classdef board<handle
         end
         
         function winner = getWinner(obj, turns)
-            if turns < 8
+            % neither player has placed 4 game pieces yet
+            % so there can be no winner
+            if turns < 6
                 winner = 0;
                 return;
             end
