@@ -79,18 +79,18 @@ classdef board<handle
         
         %}
         
-        function playHumanVsComp(obj, ply8, heuristic)
+        function playHumanVsComp(obj, ply8)
         % RANDOM is 1
         % Neural network is -1
-        % ply8: bool, are we using ply 8 NN
-        % heuristic: bool, are we using heuristic NN
+        % ply8: bool, are we using ply 8 NN; else use heuristic NN
             obj.clearBoard();
             
             turn = 1;
             winner = 0;
+            whogoesfirst = randi([0 1]);
             while (winner == 0 && turn < 43)
                 disp(sprintf('=============turn %d', turn));
-                if mod(turn,2) == 1
+                if mod(turn,2) == whogoesfirst
                     obj.print();
                     % Get input from human player
                     result = input('P1: enter column: ');
@@ -133,7 +133,7 @@ classdef board<handle
             end
         end
         
-%=========================================================        
+%---------------------------------------------------------------------
         function playCompVsComp(obj)
         % 8-ply is COMP8 is 1
         % heuristic is HEUR is -1
@@ -141,9 +141,10 @@ classdef board<handle
             
             turn = 1;
             winner = 0;
+            whogoesfirst = randi([0 1]);
             while (winner == 0 && turn < 43)
                 disp(sprintf('=============turn %d', turn));
-                if mod(turn,2) == 1
+                if mod(turn,2) == whogoesfirst
                     % Get input from 8-ply neural network
                     result = getNextMove(obj.vectorizeBoard());
                     disp(sprintf('COMP8 played %d', result));
@@ -178,18 +179,18 @@ classdef board<handle
             end
         end
 %----------------------------------------------------------------------        
-        function playCompVSRand(obj, ply8, heuristic)
+        function playCompVSRand(obj, ply8)
         % RANDOM is 1
         % Neural network is -1
-        % ply8: bool, are we using ply 8 NN
-        % heuristic: bool, are we using heuristic NN
+        % ply8: bool, are we using ply 8 NN; else, use heuristic NN
             obj.clearBoard();
             
             turn = 1;
             winner = 0;
+            whogoesfirst = randi([0 1]);
             while (winner == 0 && turn < 43)
                 disp(sprintf('=============turn %d', turn));
-                if mod(turn,2) == 1
+                if mod(turn,2) == whogoesfirst
                     % Get RANDOM
                     result = randi([1,7]);
                     disp(sprintf('RAND played %d', result));
