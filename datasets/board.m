@@ -275,7 +275,7 @@ classdef board<handle
                     elseif consec(1) == a(r, c)
                         consec = [consec a(r,c)];
                     else
-                        consec = [];
+                        consec = [a(r,c)];
                     end
                     
                     if length(consec) >= 4
@@ -303,12 +303,11 @@ classdef board<handle
                     elseif consec(1) == a(r, c)
                         consec = [consec a(r,c)];
                     else
-                        consec = [];
+                        consec = [a(r,c)];
                     end
                     disp(consec);
                     if length(consec) >= 4
                         winner = consec(1);
-                        disp('winner!');
                         return
                     end
                 end
@@ -387,7 +386,7 @@ classdef board<handle
                         elseif consec(1) == a(r, c)
                             consec = [consec a(r,c)];
                         else
-                            consec = [];
+                            consec = [a(r,c)];
                         end
 
                         if length(consec) >= 4
