@@ -13,8 +13,8 @@ for row = 1:7
     c = cl(board(:,row));
     if (size(c,1) ~= 0)
         temp(c(1),row) = 1;
-        y = sim(net, temp(:)');
-        score(row) = y(1,row) - y(2,row);
+        y = sim(net, temp(:));
+        score(row) = y(1) - y(3);
         temp = board;
     end
 end
