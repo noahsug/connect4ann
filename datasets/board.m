@@ -335,7 +335,7 @@ classdef board<handle
                         else
                             consec = [a(r,c)];
                         end
-
+                        
                         if length(consec) >= 4
                             winner = consec(1);
                             return
@@ -343,6 +343,9 @@ classdef board<handle
                         c = c + dx;
                         r = r + dy;
                     end
+                    
+                    % clear at end of diag
+                    consec = [];
                 end
             end
             winner = 0;
