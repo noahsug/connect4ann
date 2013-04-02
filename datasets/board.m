@@ -80,6 +80,10 @@ classdef board<handle
         %}
         
         function playHumanVsComp(obj, ply8, heuristic)
+        % RANDOM is 1
+        % Neural network is -1
+        % ply8: bool, are we using ply 8 NN
+        % heuristic: bool, are we using heuristic NN
             obj.clearBoard();
             
             turn = 1;
@@ -97,55 +101,20 @@ classdef board<handle
                     end
                 else
                     % Get input from neural network
-                    result = 2;
+                    if ply8 == 1
+                        result = getNextMove(obj.vectorizeBoard());
+                    else
+                        result = getGNetNextMove(obj.vectorizeBoard());
+                    end
+                    
                     disp(sprintf('ANN played %d', result));
                     added = obj.add(-1, result);
                     while added == 0
-                        result = 3;
-                        disp(sprintf('again: RAND played %d', result));
-                        added = obj.add(-1, result);
-                    end
-                end
-                
-                turn = turn + 1;
-                winner = obj.getWinner(turn);
-            end
-            
-            if turn == 43
-                disp('xxxxxx TIE xxxxxx');
-            elseif winner == -1
-                disp('****** And the winner is: COMPUTER');
-            elseif winner == 1
-                disp('****** And the winner is: RANDOM');
-            end
-        end
-        
-        function playCompVsComp(obj)
-        % 8-ply is COMP1 is 1
-        % heuristic is COMP2 is -1
-            obj.clearBoard();
-            
-            turn = 1;
-            winner = 0;
-            while (winner == 0 && turn < 43)
-                disp(sprintf('=============turn %d', turn));
-                if mod(turn,2) == 1
-                    % Get RANDOM
-                    result = randi([1,7]);
-                    disp(sprintf('RAND played %d', result));
-                    added = obj.add(1, result);
-                    while added == 0
-                        result = randi([1,7]);
-                        disp(sprintf('again: RAND played %d', result));
-                        added = obj.add(1, result);
-                    end
-                else
-                    % Get input from neural network
-                    result = 2;
-                    disp(sprintf('ANN played %d', result));
-                    added = obj.add(-1, result);
-                    while added == 0
-                        result = 3;
+                        if ply8 == 1
+                            result = getNextMove(obj.vectorizeBoard());
+                        else
+                            result = getGNetNextMove(obj.vectorizeBoard());
+                        end
                         disp(sprintf('again: ANN played %d', result));
                         added = obj.add(-1, result);
                     end
@@ -164,9 +133,56 @@ classdef board<handle
             end
         end
         
-        function playCompVSRand(obj)
+%=========================================================        
+        function playCompVsComp(obj)
+        % 8-ply is COMP8 is 1
+        % heuristic is HEUR is -1
+            obj.clearBoard();
+            
+            turn = 1;
+            winner = 0;
+            while (winner == 0 && turn < 43)
+                disp(sprintf('=============turn %d', turn));
+                if mod(turn,2) == 1
+                    % Get input from 8-ply neural network
+                    result = getNextMove(obj.vectorizeBoard());
+                    disp(sprintf('COMP8 played %d', result));
+                    added = obj.add(1, result);
+                    while added == 0
+                        result = getNextMove(obj.vectorizeBoard());
+                        disp(sprintf('again: COMP8 played %d', result));
+                        added = obj.add(1, result);
+                    end
+                else
+                    % Get input from heuristic neural network
+                    result = getGNetNextMove(obj.vectorizeBoard());
+                    disp(sprintf('HEUR played %d', result));
+                    added = obj.add(-1, result);
+                    while added == 0
+                        result = getGNetNextMove(obj.vectorizeBoard());
+                        disp(sprintf('again: HEUR played %d', result));
+                        added = obj.add(-1, result);
+                    end
+                end
+                
+                turn = turn + 1;
+                winner = obj.getWinner(turn);
+            end
+            
+            if turn == 43
+                disp('xxxxxx TIE xxxxxx');
+            elseif winner == -1
+                disp('****** And the winner is: HEUR');
+            elseif winner == 1
+                disp('****** And the winner is: COMP8');
+            end
+        end
+%----------------------------------------------------------------------        
+        function playCompVSRand(obj, ply8, heuristic)
         % RANDOM is 1
         % Neural network is -1
+        % ply8: bool, are we using ply 8 NN
+        % heuristic: bool, are we using heuristic NN
             obj.clearBoard();
             
             turn = 1;
@@ -185,11 +201,19 @@ classdef board<handle
                     end
                 else
                     % Get input from neural network
-                    result = 2;
+                    if ply8 == 1
+                            result = getNextMove(obj.vectorizeBoard());
+                        else
+                            result = getGNetNextMove(obj.vectorizeBoard());
+                    end
                     disp(sprintf('ANN played %d', result));
                     added = obj.add(-1, result);
                     while added == 0
-                        result = 3;
+                        if ply8 == 1
+                            result = getNextMove(obj.vectorizeBoard());
+                        else
+                            result = getGNetNextMove(obj.vectorizeBoard());
+                        end
                         disp(sprintf('again: ANN played %d', result));
                         added = obj.add(-1, result);
                     end
