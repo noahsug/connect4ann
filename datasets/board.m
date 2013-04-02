@@ -82,12 +82,13 @@ classdef board<handle
         end
         
         % Outputs state of the game as a vector
-        % starting from bottom of board upwards
+        % starting from bottom of board upwards.
+        % Inverts so that the ANN can predict the next move
         function value = vectorizeBoard(obj)
             value = [];
             a = obj.pieces * -1;
-            for r = obj.ROWS:-1:1
-                for c = 1:obj.COLS
+            for c = 1:obj.COLS
+                for r = 1:obj.ROWS
                     value = [value a(r, c)];
                 end
             end
@@ -304,9 +305,10 @@ classdef board<handle
                     else
                         consec = [];
                     end
-                    
+                    disp(consec);
                     if length(consec) >= 4
                         winner = consec(1);
+                        disp('winner!');
                         return
                     end
                 end
