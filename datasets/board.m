@@ -160,25 +160,25 @@ classdef board<handle
             winner = 0;
             whogoesfirst = randi([0 1]);
             while (winner == 0 && turn < 43)
-                %disp(sprintf('=============turn %d', turn));
+                disp(sprintf('=============turn %d', turn));
                 if mod(turn,2) == whogoesfirst
                     % Get input from 8-ply neural network
                     result = getNextMove(obj.vectorizeBoard());
-                    %disp(sprintf('COMP8(X) played %d', result));
+                    disp(sprintf('COMP8(X) played %d', result));
                     added = obj.add(1, result);
                     while added == 0
                         result = getNextMove(obj.vectorizeBoard());
-                        %disp(sprintf('again: COMP8(X) played %d', result));
+                        disp(sprintf('again: COMP8(X) played %d', result));
                         added = obj.add(1, result);
                     end
                 else
                     % Get input from heuristic neural network
                     result = getGNetNextMove(obj.vectorizeBoard());
-                    %disp(sprintf('HEUR(O) played %d', result));
+                    disp(sprintf('HEUR(O) played %d', result));
                     added = obj.add(-1, result);
                     while added == 0
                         result = getGNetNextMove(obj.vectorizeBoard());
-                        %disp(sprintf('again: HEUR(O) played %d', result));
+                        disp(sprintf('again: HEUR(O) played %d', result));
                         added = obj.add(-1, result);
                     end
                 end
@@ -207,15 +207,15 @@ classdef board<handle
             winner = 0;
             whogoesfirst = randi([0 1]);
             while (winner == 0 && turn < 43)
-                %disp(sprintf('=============turn %d', turn));
+                disp(sprintf('=============turn %d', turn));
                 if mod(turn,2) == whogoesfirst
                     % Get RANDOM
                     result = randi([1,7]);
-                    %disp(sprintf('RAND(X) played %d', result));
+                    disp(sprintf('RAND(X) played %d', result));
                     added = obj.add(1, result);
                     while added == 0
                         result = randi([1,7]);
-                        %disp(sprintf('again: RAND(X) played %d', result));
+                        disp(sprintf('again: RAND(X) played %d', result));
                         added = obj.add(1, result);
                     end
                 else
@@ -225,7 +225,7 @@ classdef board<handle
                         else
                             result = getGNetNextMove(obj.vectorizeBoard());
                     end
-                    %disp(sprintf('ANN(O) played %d', result));
+                    disp(sprintf('ANN(O) played %d', result));
                     added = obj.add(-1, result);
                     while added == 0
                         if ply8 == 1
@@ -233,7 +233,7 @@ classdef board<handle
                         else
                             result = getGNetNextMove(obj.vectorizeBoard());
                         end
-                        %disp(sprintf('again: ANN(O) played %d', result));
+                        disp(sprintf('again: ANN(O) played %d', result));
                         added = obj.add(-1, result);
                     end
                 end
