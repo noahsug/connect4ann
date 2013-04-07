@@ -1,0 +1,6 @@
+%{
+
+
+%}
+b = board();
+b.playCompVsComp();
