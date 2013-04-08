@@ -17,5 +17,8 @@ The presentation slides are:
 
 TO RUN:
     
+        cd datasets
+        
+
 
 
